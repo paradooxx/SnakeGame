@@ -25,12 +25,26 @@ public class GamePlay extends JPanel{
 	private ImageIcon snakeImage;
 	
 	private ImageIcon titleImage;
+	
+	private int moves = 0;
+	private int snakeLength = 3;
+	
 	public GamePlay()
 	{
 		
 	}
 	public void paint(Graphics g)
 	{
+		if(moves == 0)
+		{
+			snakeXlength[0] = 500;
+			snakeXlength[1] = 465;
+			snakeXlength[2] = 430;
+			
+			snakeYlength[0] = 500;
+			snakeYlength[1] = 500;
+			snakeYlength[2] = 500;
+		}
 		//title image 
 		g.setColor(Color.WHITE);
 		g.drawRect(24, 10, 1214, 55);
@@ -45,6 +59,36 @@ public class GamePlay extends JPanel{
 		g.fillRect(25, 75, 1213, 598);
 		
 		rightMouth = new ImageIcon("images/rightmouth.png");
-		rightMouth.paintIcon(this, g, 500, 500);
+		rightMouth.paintIcon(this, g, snakeXlength[0], snakeYlength[0]);
+		
+		for(int i = 0 ; i < snakeLength ; i++)
+		{
+			if(i == 0 && right)
+			{
+				rightMouth = new ImageIcon("images/rightmouth.png");
+				rightMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
+			}
+			if(i == 0 && left)
+			{
+				leftMouth = new ImageIcon("images/leftmouth.png");
+				leftMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
+			}
+			if(i == 0 && top)
+			{
+				upMouth = new ImageIcon("images/topmouth.png");
+				upMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
+			}
+			if(i == 0 && bottom)
+			{
+				bottomMouth = new ImageIcon("images/bottommouth.png");
+				bottomMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
+			}
+			if(i != 0)
+			{
+				snakeImage = new ImageIcon("images/body.png");
+				snakeImage.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
+			}
+		}
+		g.dispose();
 	}
 }
