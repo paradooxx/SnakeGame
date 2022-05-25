@@ -1,17 +1,21 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
-public class GamePlay extends JPanel{
+public class GamePlay extends JPanel implements KeyListener, ActionListener{
 	
 	private int[] snakeXlength = new int[750];
 	private int[] snakeYlength = new int[750];
 	
-	private boolean top = false;
-	private boolean bottom = false;
+	private boolean up = false;
+	private boolean down = false;
 	private boolean right = false;
 	private boolean left = false;
 	
@@ -31,7 +35,11 @@ public class GamePlay extends JPanel{
 	
 	public GamePlay()
 	{
-		
+		addKeyListener(this);
+		setFocusable(true);
+		setFocusTraversalKeysEnabled(true);
+		timer=new Timer(delay,this);
+		timer.start();
 	}
 	public void paint(Graphics g)
 	{
@@ -73,12 +81,12 @@ public class GamePlay extends JPanel{
 				leftMouth = new ImageIcon("images/leftmouth.png");
 				leftMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
 			}
-			if(i == 0 && top)
+			if(i == 0 && up)
 			{
 				upMouth = new ImageIcon("images/topmouth.png");
 				upMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
 			}
-			if(i == 0 && bottom)
+			if(i == 0 && down)
 			{
 				bottomMouth = new ImageIcon("images/bottommouth.png");
 				bottomMouth.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
@@ -90,5 +98,147 @@ public class GamePlay extends JPanel{
 			}
 		}
 		g.dispose();
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(right)
+		{
+			for(int i = snakeLength - 1 ; i >= 0 ; i--)
+				snakeYlength[i + 1] = snakeYlength[i];
+			for(int i = snakeLength ; i >= 0 ; i--)
+			{
+				if(i == 0)
+					snakeXlength[i] = snakeXlength[i] + 35;
+				else
+					snakeXlength[i] = snakeXlength[i - 1];
+				if(snakeXlength[i] > 1180)
+					snakeXlength[i] = 20;
+			}
+			repaint();
+		}
+		if(left)
+		{
+			for(int i = snakeLength - 1 ; i >= 0 ; i--)
+				snakeYlength[i + 1] = snakeYlength[i];
+			for(int i = snakeLength ; i >= 0 ; i--)
+			{
+				if(i == 0)
+					snakeXlength[i] = snakeXlength[i] - 35;
+				else
+					snakeXlength[i] = snakeXlength[i - 1];
+				if(snakeXlength[i] < 20)
+					snakeXlength[i] = 1180;
+			}
+			repaint();
+		}
+		if(up)
+		{
+			for(int i = snakeLength - 1 ; i >= 0 ; i--)
+				snakeXlength[i + 1] = snakeXlength[i];
+			for(int i = snakeLength ; i >= 0 ; i--)
+			{
+				if(i == 0)
+					snakeYlength[i] = snakeYlength[i] - 35;
+				else
+					snakeYlength[i] = snakeYlength[i - 1];
+				if(snakeYlength[i] < 70)
+					snakeYlength[i] = 630;
+			}
+			repaint();
+		}
+		if(down)
+		{
+			for(int i = snakeLength - 1 ; i >= 0 ; i--)
+				snakeXlength[i + 1] = snakeXlength[i];
+			for(int i = snakeLength ; i >= 0 ; i--)
+			{
+				if(i == 0)
+					snakeYlength[i] = snakeYlength[i] + 35;
+				else
+					snakeYlength[i] = snakeYlength[i - 1];
+				if(snakeYlength[i] > 630)
+					snakeYlength[i] = 70;
+			}
+			repaint();
+		}
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			moves++;
+			if(!left)
+			{
+				right = true;
+				
+			}
+			else
+			{
+				right = false;
+				left = true;
+			}
+			up = false;
+			down = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			moves++;
+			if(!right)
+			{
+				left = true;
+				
+			}
+			else
+			{
+				left = false;
+				right = true;
+			}
+			up = false;
+			down = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			moves++;
+			if(!down)
+			{
+				up = true;
+				
+			}
+			else
+			{
+				down = true;
+				up = false;
+			}
+			right = false;
+			left = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			moves++;
+			if(!up)
+			{
+				down = true;
+				
+			}
+			else
+			{
+				up = true;
+				down = false;
+			}
+			right = false;
+			left = false;
+		}
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
