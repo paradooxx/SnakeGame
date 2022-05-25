@@ -35,16 +35,15 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 	private int snakeLength = 3;
 	
 	
-	private int[] enemyXPos= {25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,
-			600,625,650,675,700,725,750,775,800,825,850,875,900,925,950,975,1000,1025,1050,1075,1100,1125,1150,1175,1180};
+	private int[] enemyXPos= {20, 55, 90, 125, 160, 195, 230, 265, 300, 335, 370, 405, 440, 475, 510, 545, 580, 615, 650, 685, 720, 755, 790, 825, 860, 895, 930,
+								965, 1000, 1035, 1070, 1105, 1140, 1175, 1180};
 	
-	private int[] enemyYPos = {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,
-			600,625,630};
+	private int[] enemyYPos = {70, 105, 140, 175, 210, 245, 280, 315, 350, 385, 420, 455, 490, 525, 560, 595, 630};
 	
 	private Random random=new Random();
 	
-	private int xPos = random.nextInt(48);
-	private int yPos = random.nextInt(24);
+	private int xPos = random.nextInt(34);
+	private int yPos = random.nextInt(17);
 	
 	public GamePlay()
 	{
@@ -113,11 +112,11 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 		enemyImage = new ImageIcon("images/food(frog).png");
 		enemyImage.paintIcon(this, g, enemyXPos[xPos], enemyYPos[yPos]);
 		
-		if(enemyXPos[xPos] == snakeXlength[0] || enemyYPos[yPos] == snakeYlength[0])
+		if(enemyXPos[xPos] == snakeXlength[0] && enemyYPos[yPos] == snakeYlength[0])
 		{
 			snakeLength++;
-			xPos = random.nextInt(48);
-			yPos = random.nextInt(24);
+			xPos = random.nextInt(34);
+			yPos = random.nextInt(17);
 		}
 		g.dispose();
 	}
