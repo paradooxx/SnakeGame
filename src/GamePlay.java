@@ -38,7 +38,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 	
 	Random random = new Random();
 	
-	private int xPos = random.nextInt(1200) + 25;
+	private int xPos = random.nextInt(1180) + 25;
 	private int yPos = random.nextInt(630) + 70;
 	
 	public GamePlay()
