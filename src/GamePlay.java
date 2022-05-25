@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -27,11 +28,18 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 	private ImageIcon rightMouth;
 	private ImageIcon leftMouth;
 	private ImageIcon snakeImage;
-	
+	private ImageIcon enemyImage;
 	private ImageIcon titleImage;
 	
 	private int moves = 0;
 	private int snakeLength = 3;
+	
+	//private int[] enemyXPos;
+	
+	Random random = new Random();
+	
+	private int xPos = random.nextInt(1200) + 25;
+	private int yPos = random.nextInt(630) + 70;
 	
 	public GamePlay()
 	{
@@ -97,6 +105,8 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 				snakeImage.paintIcon(this, g, snakeXlength[i], snakeYlength[i]);
 			}
 		}
+		enemyImage = new ImageIcon("images/food(frog).png");
+		enemyImage.paintIcon(this, g, xPos, yPos);
 		g.dispose();
 	}
 	@Override
