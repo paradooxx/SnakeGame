@@ -34,12 +34,17 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 	private int moves = 0;
 	private int snakeLength = 3;
 	
-	//private int[] enemyXPos;
 	
-	Random random = new Random();
+	private int[] enemyXPos= {25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,
+			600,625,650,675,700,725,750,775,800,825,850,875,900,925,950,975,1000,1025,1050,1075,1100,1125,1150,1175,1180};
 	
-	private int xPos = random.nextInt(1180) + 25;
-	private int yPos = random.nextInt(630) + 70;
+	private int[] enemyYPos = {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,
+			600,625,630};
+	
+	private Random random=new Random();
+	
+	private int xPos = random.nextInt(48);
+	private int yPos = random.nextInt(24);
 	
 	public GamePlay()
 	{
@@ -106,7 +111,14 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 		enemyImage = new ImageIcon("images/food(frog).png");
-		enemyImage.paintIcon(this, g, xPos, yPos);
+		enemyImage.paintIcon(this, g, enemyXPos[xPos], enemyYPos[yPos]);
+		
+		if(enemyXPos[xPos] == snakeXlength[0] || enemyYPos[yPos] == snakeYlength[0])
+		{
+			snakeLength++;
+			xPos = random.nextInt(48);
+			yPos = random.nextInt(24);
+		}
 		g.dispose();
 	}
 	@Override
